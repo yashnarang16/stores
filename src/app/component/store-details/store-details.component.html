@@ -1,1 +1,25 @@
-<p>store-details works!</p>
+<div class="clr-row">
+    <div class="clr-col-6">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Days</th>
+                    <th>From</th>
+                    <th>to</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let store of originalDetails;index as i;">
+                    <th>{{store.weekday}}</th>
+                    <td><input type="time" name="from_{{i}}" [(ngModel)]="store.from_hour" [ngModelOptions]="{standalone: true}" [disabled]="isDisabled"/></td>
+                    <td><input type="time" name="to_{{i}}" [(ngModel)]="store.to_hour" [ngModelOptions]="{standalone: true}" [disabled]="isDisabled"/></td>
+                </tr>
+            </tbody>
+        </table>
+        <button class="btn btn-secondary" (click)="toggle()">Edit Toggle</button>
+        <button class="btn btn-primary" (click)="update()">Update</button>
+    </div>
+    <div class="clr-col-6">
+        <span>6</span>
+    </div>
+</div>

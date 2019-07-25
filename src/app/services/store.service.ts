@@ -19,4 +19,9 @@ export class StoreService {
    return this.http.get(url);
   }
 
+  updateStoreHours(storeId: string, value: any[]) {
+    const url = '/places/place/{storeId}/openinghours/'.replace('{storeId}', storeId);
+    return this.http.patch(url, value);
+  }
+
 }
