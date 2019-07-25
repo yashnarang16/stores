@@ -1,0 +1,23 @@
+<div class="clr-row" *ngIf="store">
+    <div class="clr-col-4">
+        <div class="card">
+            <div class="card-block">
+                <div class="card-media-block wrap">
+                    <img class="card-media-image" [src]="store.store_logo_url" />
+                    <div class="card-media-description">
+                        <span class="card-media-title">{{store.name}} - {{store.category}}</span>
+                        <ng-container *ngIf="store.categories_available">
+                        <span class="card-media-text" *ngFor="let cat of store.categories_available">{{cat}}</span>
+                        </ng-container>
+                    </div>
+                </div>
+                <p class="card-text">
+                    {{store.place.street_address}}, {{store.place.city}}, {{store.place.state}}
+                </p>
+            </div>
+            <div class="card-footer">
+                <a class="card-link" [routerLink]="['../store-details', store.place.id]">Opening Hours</a>
+            </div>
+        </div>
+    </div>
+</div>

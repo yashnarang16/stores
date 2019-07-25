@@ -2,10 +2,20 @@ import { NgModule, Component } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { LoginComponent } from "./component/login/login.component";
 import { DashboardComponent } from "./component/dashboard/dashboard.component";
+import { StoreListComponent } from './component/store-list/store-list.component';
+import { StoreDetailsComponent } from './component/store-details/store-details.component';
+import { StoreDetailsResolverService } from './services/store-details-resolver.service';
 
 const routes: Routes = [
   { path: "login", component: LoginComponent },
-  { path: "dashboard", component: DashboardComponent },
+  {
+    path: "dashboard", component: DashboardComponent, children: [
+      { path: 'list', component: StoreListComponent },
+      { path: 'store-details/:id', component: StoreDetailsComponent,
+      resolve: { 'stores-details': StoreDetailsResolverService } },
+      { path: '', redirectTo: 'list', pathMatch: 'full' }
+    ]
+  },
   { path: "", redirectTo: "login", pathMatch: "full" }
 ];
 
@@ -13,4 +23,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

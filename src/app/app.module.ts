@@ -9,9 +9,11 @@ import { LoginComponent } from './component/login/login.component';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { HTTP_INTERCEPTORS, HttpClientModule,  } from '@angular/common/http';
 import { HttpInterceptorService } from './services/http-interceptor.service';
+import { StoreListComponent } from './component/store-list/store-list.component';
+import { StoreDetailsComponent } from './component/store-details/store-details.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, DashboardComponent],
+  declarations: [AppComponent, LoginComponent, DashboardComponent, StoreListComponent, StoreDetailsComponent],
   imports: [BrowserModule, AppRoutingModule, ClarityModule, FormsModule, HttpClientModule],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true }],
   bootstrap: [AppComponent]
