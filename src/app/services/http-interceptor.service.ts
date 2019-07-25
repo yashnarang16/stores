@@ -1,0 +1,44 @@
+import { Injectable } from '@angular/core';
+import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor , HttpResponse, HttpErrorResponse} from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { AuthService } from './auth.service';
+import { environment } from '../../environments/environment';
+import { map, catchError } from 'rxjs/operators';
+import { SessionStorageService } from './session-storage.service';
+@Injectable()
+export class HttpInterceptorService implements HttpInterceptor {
+
+  constructor(public authService: AuthService, public sessionStorage: SessionStorageService) { }
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    // add authorization header with jwt token if available
+    request = request.clone({url: environment.baseURL + request.url});
+    const currentUser: string = this.sessionStorage.getItem('Authorization');
+    if (currentUser) {
+        request = request.clone({
+            setHeaders: {
+                Authorization: `Token ${currentUser}`
+            }
+        });
+    }
+    if (!request.headers.has('Content-Type')) {
+        request = request.clone({ headers: request.headers.set('Content-Type', 'application/json') });
+    }
+
+    // request = request.clone({ headers: request.headers.set('Accept', 'application/json') });
+    console.log(request);
+    return next.handle(request).pipe(
+        map((event: HttpEvent<any>) => {
+            if (event instanceof HttpResponse) {
+                console.log('event--->>>', event);
+            }
+            return event;
+        }, catchError((error: HttpErrorResponse) => {
+            let data = {};
+            data = {
+                reason: error && error.error.reason ? error.error.reason : '',
+                status: error.status
+            };
+            return throwError(error);
+        })));
+}
+}
