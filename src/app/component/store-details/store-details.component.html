@@ -1,5 +1,6 @@
 <div class="clr-row">
     <div class="clr-col-6">
+        <h4>Opening Hours for Store</h4>
         <table class="table">
             <thead>
                 <tr>
@@ -20,6 +21,28 @@
         <button class="btn btn-primary" (click)="update()">Update</button>
     </div>
     <div class="clr-col-6">
-        <span>6</span>
+            <form clrForm #simpleForm="ngForm" clrLayout="vertical">
+                    <h4>Counts Vs Date Plot</h4>
+                    <div class="clr-row">
+                        <div clas="clr-col-6">
+                                <clr-date-container>
+                                        <label>Enter From Date</label>
+                                        <input type="date" name="from_date" [(ngModel)]="date.from_date" clrDate>
+                                    </clr-date-container>
+                        </div>
+                        <div clas="clr-col-6">
+                                <clr-date-container>
+                                        <label>Enter To Date</label>
+                                        <input type="date" name="to_date" [(ngModel)]="date.to_date" clrDate>
+                                </clr-date-container>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" (click)="plot()">Generate Plot</button>
+                </form>
+                <app-timeline-chart
+                *ngIf="plotData.length > 0"
+                [results] = "plotData">
+                </app-timeline-chart>
+
     </div>
 </div>

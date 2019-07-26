@@ -11,10 +11,12 @@ import { HTTP_INTERCEPTORS, HttpClientModule,  } from '@angular/common/http';
 import { HttpInterceptorService } from './services/http-interceptor.service';
 import { StoreListComponent } from './component/store-list/store-list.component';
 import { StoreDetailsComponent } from './component/store-details/store-details.component';
-
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { TimelineChartComponent } from './component/timeline-chart/timeline-chart.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
-  declarations: [AppComponent, LoginComponent, DashboardComponent, StoreListComponent, StoreDetailsComponent],
-  imports: [BrowserModule, AppRoutingModule, ClarityModule, FormsModule, HttpClientModule],
+  declarations: [AppComponent, LoginComponent, DashboardComponent, StoreListComponent, StoreDetailsComponent, TimelineChartComponent],
+  imports: [BrowserModule, AppRoutingModule, ClarityModule, FormsModule, HttpClientModule, NgxChartsModule, BrowserAnimationsModule],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true }],
   bootstrap: [AppComponent]
 })

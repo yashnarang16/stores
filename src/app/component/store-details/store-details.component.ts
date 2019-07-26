@@ -13,6 +13,8 @@ export class StoreDetailsComponent implements OnInit {
   public originalDetails: any = [];
   public isDisabled: Boolean = true;
   public selectedStore: string;
+  public date: any = {};
+  public plotData: any = [];
   constructor(public route: ActivatedRoute, public storeService: StoreService) { }
 
   ngOnInit() {
@@ -45,5 +47,19 @@ export class StoreDetailsComponent implements OnInit {
     });
     return arr;
   }
+
+  plot() {
+    console.log(this.date);
+    if (this.date && this.date.from_date && this.date.to_date) {
+      this.storeService.getPlotData(this.date).subscribe((res: any) => {
+        if (res && res.visits.length > 0) {
+            this.plotData = res.visits;
+        }
+        console.log(res);
+      });
+    }
+  }
+
+
 
 }
