@@ -5,10 +5,11 @@ import { AuthService } from './auth.service';
 import { environment } from '../../environments/environment';
 import { map, catchError } from 'rxjs/operators';
 import { SessionStorageService } from './session-storage.service';
+import { AppService } from './app.service';
 @Injectable()
 export class HttpInterceptorService implements HttpInterceptor {
 
-  constructor(public authService: AuthService, public sessionStorage: SessionStorageService) { }
+  constructor(public authService: AuthService, public sessionStorage: SessionStorageService, public appService: AppService) { }
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // add authorization header with jwt token if available
     request = request.clone({url: environment.baseURL + request.url});
@@ -24,20 +25,14 @@ export class HttpInterceptorService implements HttpInterceptor {
         request = request.clone({ headers: request.headers.set('Content-Type', 'application/json') });
     }
 
-    // request = request.clone({ headers: request.headers.set('Accept', 'application/json') });
-    console.log(request);
     return next.handle(request).pipe(
         map((event: HttpEvent<any>) => {
             if (event instanceof HttpResponse) {
-                console.log('event--->>>', event);
+                this.appService.notification.next(event);
             }
             return event;
         }, catchError((error: HttpErrorResponse) => {
-            let data = {};
-            data = {
-                reason: error && error.error.reason ? error.error.reason : '',
-                status: error.status
-            };
+            this.appService.notification.next(error);
             return throwError(error);
         })));
 }

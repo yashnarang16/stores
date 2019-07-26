@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  baseURL: '//testapi.halanx.com'
+  baseURL: 'http://testapi.halanx.com'
 };

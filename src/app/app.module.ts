@@ -14,8 +14,10 @@ import { StoreDetailsComponent } from './component/store-details/store-details.c
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { TimelineChartComponent } from './component/timeline-chart/timeline-chart.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AlertComponent } from './component/alert/alert.component';
 @NgModule({
-  declarations: [AppComponent, LoginComponent, DashboardComponent, StoreListComponent, StoreDetailsComponent, TimelineChartComponent],
+  declarations: [AppComponent, LoginComponent, DashboardComponent, StoreListComponent, StoreDetailsComponent,
+    TimelineChartComponent, AlertComponent],
   imports: [BrowserModule, AppRoutingModule, ClarityModule, FormsModule, HttpClientModule, NgxChartsModule, BrowserAnimationsModule],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true }],
   bootstrap: [AppComponent]

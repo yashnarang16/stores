@@ -1,0 +1,13 @@
+<clr-alert *ngIf="notificationState" [clrAlertType]="dynamicClass">
+        <clr-alert-item>
+            <span class="alert-text">
+                {{notificationState.status}}
+            </span>
+            <span *ngIf="notificationState.status === 200" class="alert-text">
+                Operation Success
+            </span>
+            <span *ngIf="notificationState.status !== 200" class="alert-text">
+                Something went Wrong
+            </span>
+        </clr-alert-item>
+</clr-alert>
