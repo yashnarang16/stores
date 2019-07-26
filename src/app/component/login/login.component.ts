@@ -10,7 +10,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  form = {};
+  form = {
+    username: null,
+    password: null
+  };
 
   constructor(public authService: AuthService, public sessionStorage: SessionStorageService, public router: Router) { }
 
