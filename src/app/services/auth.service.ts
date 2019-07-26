@@ -15,8 +15,13 @@ export class AuthService {
    return this.http.post('/rest-auth/login/', cred);
   }
 
-  setLoggedIn() {
-     this.isLoggedIn = true;
+  setLoggedIn(value: boolean) {
+     this.isLoggedIn = value;
   }
+
+  logOut() {
+    return this.http.post('/rest-auth/logout/', { });
+  }
+
 
 }
